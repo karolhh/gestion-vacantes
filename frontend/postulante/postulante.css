@@ -1,0 +1,120 @@
+/* =====================================================
+   ESTILOS ESPECÍFICOS DEL PANEL POSTULANTE
+   ===================================================== */
+
+/* Tarjetas de vacantes */
+.vacante-card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border-radius: 0.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+}
+
+.vacante-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.vacante-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.vacante-card .card-title {
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 0.5rem;
+}
+
+.vacante-card .vacante-ubicacion {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.vacante-card .vacante-descripcion {
+    color: #495057;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.vacante-card .vacante-salario {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #198754;
+    margin-bottom: 0.75rem;
+}
+
+.vacante-card .card-footer {
+    background-color: #fff;
+    border-top: 1px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Botones de acción */
+.btn-accion {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    margin: 0 0.1rem;
+    border-radius: 0.25rem;
+    border: none;
+    color: #fff;
+}
+
+.btn-accion-ver { background-color: #0dcaf0; }
+.btn-accion-ver:hover { background-color: #0aa2c0; }
+
+/* Estado de la hoja de vida */
+.hv-cargada {
+    color: #198754;
+    font-size: 0.9rem;
+}
+
+.hv-no-cargada {
+    color: #dc3545;
+    font-size: 0.9rem;
+}
+
+/* Detalle de vacante */
+.detalle-seccion {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.detalle-seccion:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.detalle-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #6c757d;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+}
+
+.detalle-valor {
+    font-size: 1rem;
+    color: #212529;
+}
+
+/* Tabla */
+#tabla-mis-postulaciones tr {
+    vertical-align: middle;
+}
+
+#tabla-mis-postulaciones td {
+    padding: 0.75rem 0.5rem;
+}

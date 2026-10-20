@@ -53,10 +53,24 @@ public class SecurityConfig {
                 .requestMatchers("/v3/api-docs/**").permitAll()
                 .requestMatchers("/error").permitAll()
 
-                // Rutas protegidas por rol
+                // Rutas de administración (solo ADMIN)
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/reclutador/**").hasAnyRole("RECLUTADOR", "ADMIN")
-                .requestMatchers("/api/postulante/**").hasAnyRole("POSTULANTE", "ADMIN")
+
+                // Rutas de vacantes: Lectura para todos los autenticados, escritura para RECLUTADOR y ADMIN
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/vacantes/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/vacantes/**").hasAnyRole("RECLUTADOR", "ADMIN")
+                .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/vacantes/**").hasAnyRole("RECLUTADOR", "ADMIN")
+                .requestMatchers(org.springframework.http.HttpMethod.PATCH, "/api/vacantes/**").hasAnyRole("RECLUTADOR", "ADMIN")
+                .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/vacantes/**").hasAnyRole("RECLUTADOR", "ADMIN")
+
+                // Rutas de postulaciones
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/postulaciones/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/postulaciones/**").hasAnyRole("POSTULANTE", "ADMIN")
+                .requestMatchers(org.springframework.http.HttpMethod.PATCH, "/api/postulaciones/**").hasAnyRole("RECLUTADOR", "ADMIN")
+                .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/postulaciones/**").hasRole("ADMIN")
+
+                // Rutas de postulantes (perfil y hoja de vida)
+                .requestMatchers("/api/postulantes/**").hasAnyRole("POSTULANTE", "ADMIN")
 
                 // Cualquier otra ruta requiere autenticación
                 .anyRequest().authenticated()

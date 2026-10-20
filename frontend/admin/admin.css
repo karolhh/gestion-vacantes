@@ -1,0 +1,82 @@
+/* =====================================================
+   ESTILOS ESPECÍFICOS DEL PANEL ADMIN
+   ===================================================== */
+
+/* Botones de acciones en la tabla de reclutadores */
+.btn-accion {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    margin: 0 0.1rem;
+    border-radius: 0.25rem;
+}
+
+.btn-accion-editar {
+    color: #fff;
+    background-color: #0d6efd;
+    border: none;
+}
+
+.btn-accion-editar:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-accion-deshabilitar {
+    color: #fff;
+    background-color: #ffc107;
+    border: none;
+}
+
+.btn-accion-deshabilitar:hover {
+    background-color: #e0a800;
+}
+
+.btn-accion-habilitar {
+    color: #fff;
+    background-color: #198754;
+    border: none;
+}
+
+.btn-accion-habilitar:hover {
+    background-color: #157347;
+}
+
+.btn-accion-eliminar {
+    color: #fff;
+    background-color: #dc3545;
+    border: none;
+}
+
+.btn-accion-eliminar:hover {
+    background-color: #bb2d3b;
+}
+
+/* Tabla de reclutadores */
+#tabla-reclutadores tr {
+    vertical-align: middle;
+}
+
+#tabla-reclutadores td {
+    padding: 0.75rem 0.5rem;
+}
+
+/* Estado activo/inactivo */
+.estado-activo {
+    color: #198754;
+    font-weight: 600;
+}
+
+.estado-inactivo {
+    color: #6c757d;
+    font-weight: 600;
+}
+
+/* Modal */
+#modal-reclutador .modal-title {
+    color: #0d6efd;
+}
+
+/* Sidebar activo */
+.sidebar .nav-link.active {
+    background-color: #0d6efd;
+    color: #fff;
+}

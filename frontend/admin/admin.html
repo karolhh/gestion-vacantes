@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador - Gestión Vacantes</title>
+
+    <!-- Bootstrap 5 (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Estilos compartidos -->
+    <link rel="stylesheet" href="../shared/styles.css">
+    <!-- Estilos específicos del admin -->
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- =====================================================
+         NAVBAR SUPERIOR
+         ===================================================== -->
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">
+                <i class="bi bi-briefcase-fill me-2"></i>
+                Gestión Vacantes - Administrador
+            </span>
+            <div class="d-flex align-items-center">
+                <span class="navbar-user-info">
+                    <i class="bi bi-person-circle me-1"></i>
+                    <span id="usuario-email">Cargando...</span>
+                </span>
+                <button class="btn btn-outline-light btn-sm" id="btn-cerrar-sesion">
+                    <i class="bi bi-box-arrow-right me-1"></i>
+                    Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- =====================================================
+         CONTENEDOR PRINCIPAL
+         ===================================================== -->
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="#seccion-reclutadores" data-seccion="reclutadores">
+                        <i class="bi bi-people-fill me-2"></i>
+                        Reclutadores
+                    </a>
+                    <a class="nav-link" href="#seccion-vacantes" data-seccion="vacantes">
+                        <i class="bi bi-file-earmark-text me-2"></i>
+                        Vacantes
+                    </a>
+                    <a class="nav-link" href="#seccion-postulaciones" data-seccion="postulaciones">
+                        <i class="bi bi-send-fill me-2"></i>
+                        Postulaciones
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Contenido principal -->
+            <div class="col-md-10 main-content">
+
+                <!-- =====================================================
+                     SECCIÓN: RECLUTADORES
+                     ===================================================== -->
+                <section id="seccion-reclutadores">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="page-title mb-0">
+                            <i class="bi bi-people-fill me-2"></i>
+                            Gestión de Reclutadores
+                        </h2>
+                        <button class="btn btn-primary" id="btn-nuevo-reclutador">
+                            <i class="bi bi-plus-circle me-1"></i>
+                            Nuevo Reclutador
+                        </button>
+                    </div>
+
+                    <!-- Filtros -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row g-2 align-items-center">
+                                <div class="col-md-4">
+                                    <label class="form-label">Filtrar:</label>
+                                    <select class="form-select" id="filtro-reclutadores">
+                                        <option value="todos">Todos</option>
+                                        <option value="activos">Solo activos</option>
+                                        <option value="inactivos">Solo inactivos</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Buscar por nombre o email:</label>
+                                    <input type="text" class="form-control" id="busqueda-reclutadores"
+                                           placeholder="Escribe para filtrar...">
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button class="btn btn-outline-secondary w-100" id="btn-refrescar-reclutadores">
+                                        <i class="bi bi-arrow-clockwise me-1"></i>
+                                        Refrescar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabla de reclutadores -->
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Email</th>
+                                            <th>Teléfono</th>
+                                            <th>Departamento</th>
+                                            <th>Estado</th>
+                                            <th class="text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabla-reclutadores">
+                                        <!-- Se llena con JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =====================================================
+                     SECCIÓN: VACANTES (solo lectura)
+                     ===================================================== -->
+                <section id="seccion-vacantes" class="d-none">
+                    <h2 class="page-title">
+                        <i class="bi bi-file-earmark-text me-2"></i>
+                        Vacantes Publicadas
+                    </h2>
+
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Título</th>
+                                            <th>Ubicación</th>
+                                            <th>Salario</th>
+                                            <th>Estado</th>
+                                            <th>Reclutador</th>
+                                            <th>Fecha Publicación</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabla-vacantes">
+                                        <!-- Se llena con JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =====================================================
+                     SECCIÓN: POSTULACIONES (solo lectura)
+                     ===================================================== -->
+                <section id="seccion-postulaciones" class="d-none">
+                    <h2 class="page-title">
+                        <i class="bi bi-send-fill me-2"></i>
+                        Postulaciones Recibidas
+                    </h2>
+
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Vacante</th>
+                                            <th>Postulante</th>
+                                            <th>Email</th>
+                                            <th>Estado</th>
+                                            <th>Fecha</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabla-postulaciones">
+                                        <!-- Se llena con JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         MODAL: CREAR / EDITAR RECLUTADOR
+         ===================================================== -->
+    <div class="modal fade" id="modal-reclutador" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-reclutador-titulo">Nuevo Reclutador</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <form id="form-reclutador">
+                    <div class="modal-body">
+                        <input type="hidden" id="reclutador-id">
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombre completo *</label>
+                                <input type="text" class="form-control" id="reclutador-nombre" required maxlength="150">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="reclutador-email" required maxlength="150">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contraseña *</label>
+                                <input type="password" class="form-control" id="reclutador-password"
+                                       minlength="8" maxlength="255"
+                                       placeholder="Mínimo 8 caracteres">
+                                <small class="text-muted" id="reclutador-password-hint">
+                                    Obligatoria al crear. Déjala vacía al editar para no cambiarla.
+                                </small>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Teléfono</label>
+                                <input type="text" class="form-control" id="reclutador-telefono" maxlength="20">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Departamento</label>
+                                <input type="text" class="form-control" id="reclutador-departamento" maxlength="100">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="reclutador-direccion" maxlength="255">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btn-guardar-reclutador">
+                            <i class="bi bi-save me-1"></i>
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         MODAL: CONFIRMAR ELIMINAR
+         ===================================================== -->
+    <div class="modal fade" id="modal-eliminar" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>
+                        Confirmar Eliminación
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que quieres eliminar a <strong id="eliminar-nombre"></strong>?</p>
+                    <p class="text-muted mb-0">Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btn-confirmar-eliminar">
+                        <i class="bi bi-trash me-1"></i>
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         LOADER
+         ===================================================== -->
+    <div class="loader-overlay d-none" id="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         CONTENEDOR DE ALERTAS
+         ===================================================== -->
+    <div id="alertas-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Scripts compartidos -->
+    <script src="../shared/request.js"></script>
+    <script src="../shared/api.js"></script>
+
+    <!-- Script específico del admin -->
+    <script src="admin.js"></script>
+</body>
+</html>
