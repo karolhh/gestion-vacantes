@@ -23,6 +23,7 @@ public class UsuarioResponse {
     private Usuario.Rol rol;
     private Boolean activo;
     private LocalDateTime fechaRegistro;
+    private String hojaVidaNombre; // <-- CAMPO NUEVO PARA EL NOMBRE DEL PDF
 
     public UsuarioResponse(Usuario usuario) {
         this.id = usuario.getId();
@@ -34,5 +35,6 @@ public class UsuarioResponse {
         this.rol = usuario.getRol();
         this.activo = usuario.getActivo();
         this.fechaRegistro = usuario.getFechaRegistro();
+        this.hojaVidaNombre = usuario.getHojaVidaNombre(); // <-- ASIGNACIÓN NUEVA
     }
 }

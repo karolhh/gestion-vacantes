@@ -166,4 +166,12 @@ public class PostulacionService {
                         "Postulación no encontrada con id: " + id));
         postulacionDao.deleteById(id);
     }
+    
+    // Método nuevo para listar todas las postulaciones globalmente
+    @Transactional(readOnly = true)
+    public List<PostulacionResponse> listarTodas() {
+        return postulacionDao.findAll().stream()
+                .map(PostulacionResponse::new)
+                .toList();
+    }
 }

@@ -26,9 +26,14 @@ public class PostulacionController {
         this.postulacionService = postulacionService;
     }
 
-    // =====================================================
-    // POSTULARSE A UNA VACANTE (postulante)
-    // =====================================================
+    // NUEVO ENDPOINT GLOBAL
+    @Operation(summary = "Listar todas las postulaciones del sistema (Para Reclutadores/Admin)")
+    @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'RECLUTADOR')")
+    public ResponseEntity<List<PostulacionResponse>> listarTodas() {
+        return ResponseEntity.ok(postulacionService.listarTodas());
+    }
+
     @Operation(summary = "Postularse a una vacante")
     @PostMapping
     @PreAuthorize("hasAnyRole('POSTULANTE', 'ADMIN')")
@@ -37,14 +42,10 @@ public class PostulacionController {
         return new ResponseEntity<>(postulacionService.postularse(request), HttpStatus.CREATED);
     }
 
-    // =====================================================
-    // VER MIS POSTULACIONES (postulante)
-    // =====================================================
     @Operation(summary = "Listar mis postulaciones")
     @GetMapping("/mis-postulaciones/{postulanteId}")
     @PreAuthorize("hasAnyRole('POSTULANTE', 'ADMIN')")
     public ResponseEntity<List<PostulacionResponse>> listarMisPostulaciones(
-            @Parameter(description = "ID del postulante")
             @PathVariable Long postulanteId) {
         return ResponseEntity.ok(postulacionService.listarMisPostulaciones(postulanteId));
     }
@@ -53,30 +54,21 @@ public class PostulacionController {
     @GetMapping("/mis-postulaciones/{postulanteId}/estado/{estado}")
     @PreAuthorize("hasAnyRole('POSTULANTE', 'ADMIN')")
     public ResponseEntity<List<PostulacionResponse>> listarMisPostulacionesPorEstado(
-            @PathVariable Long postulanteId,
-            @PathVariable Postulacion.Estado estado) {
+            @PathVariable Long postulanteId, @PathVariable Postulacion.Estado estado) {
         return ResponseEntity.ok(postulacionService.listarMisPostulacionesPorEstado(postulanteId, estado));
     }
 
-    // =====================================================
-    // BUSCAR POSTULACIÓN POR ID
-    // =====================================================
     @Operation(summary = "Obtener una postulación por su ID")
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('POSTULANTE', 'RECLUTADOR', 'ADMIN')")
-    public ResponseEntity<PostulacionResponse> buscarPorId(
-            @PathVariable Long id) {
+    public ResponseEntity<PostulacionResponse> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(postulacionService.buscarPorId(id));
     }
 
-    // =====================================================
-    // VER POSTULACIONES DE UNA VACANTE (reclutador/admin)
-    // =====================================================
     @Operation(summary = "Listar postulaciones de una vacante")
     @GetMapping("/vacante/{vacanteId}")
     @PreAuthorize("hasAnyRole('RECLUTADOR', 'ADMIN')")
-    public ResponseEntity<List<PostulacionResponse>> listarPorVacante(
-            @PathVariable Long vacanteId) {
+    public ResponseEntity<List<PostulacionResponse>> listarPorVacante(@PathVariable Long vacanteId) {
         return ResponseEntity.ok(postulacionService.listarPorVacante(vacanteId));
     }
 
@@ -84,31 +76,22 @@ public class PostulacionController {
     @GetMapping("/vacante/{vacanteId}/estado/{estado}")
     @PreAuthorize("hasAnyRole('RECLUTADOR', 'ADMIN')")
     public ResponseEntity<List<PostulacionResponse>> listarPorVacanteYEstado(
-            @PathVariable Long vacanteId,
-            @PathVariable Postulacion.Estado estado) {
+            @PathVariable Long vacanteId, @PathVariable Postulacion.Estado estado) {
         return ResponseEntity.ok(postulacionService.listarPorVacanteYEstado(vacanteId, estado));
     }
 
-    // =====================================================
-    // ACTUALIZAR ESTADO (reclutador/admin)
-    // =====================================================
     @Operation(summary = "Actualizar el estado de una postulación")
     @PatchMapping("/{id}/estado/{estado}")
     @PreAuthorize("hasAnyRole('RECLUTADOR', 'ADMIN')")
     public ResponseEntity<PostulacionResponse> actualizarEstado(
-            @PathVariable Long id,
-            @PathVariable Postulacion.Estado estado) {
+            @PathVariable Long id, @PathVariable Postulacion.Estado estado) {
         return ResponseEntity.ok(postulacionService.actualizarEstado(id, estado));
     }
 
-    // =====================================================
-    // ELIMINAR POSTULACIÓN (admin)
-    // =====================================================
     @Operation(summary = "Eliminar una postulación")
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> eliminar(
-            @PathVariable Long id) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         postulacionService.eliminar(id);
         return ResponseEntity.noContent().build();
     }

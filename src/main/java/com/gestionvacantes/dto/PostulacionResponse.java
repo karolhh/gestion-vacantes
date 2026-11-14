@@ -30,11 +30,13 @@ public class PostulacionResponse {
         this.fechaPostulacion = postulacion.getFechaPostulacion();
         this.fechaActualizacion = postulacion.getFechaActualizacion();
 
+        // Mapeo de la Vacante
         if (postulacion.getVacante() != null) {
             this.vacanteId = postulacion.getVacante().getId();
             this.vacanteTitulo = postulacion.getVacante().getTitulo();
         }
 
+        // Mapeo del Postulante
         if (postulacion.getPostulante() != null) {
             this.postulanteId = postulacion.getPostulante().getId();
             this.postulanteNombre = postulacion.getPostulante().getNombreCompleto();
